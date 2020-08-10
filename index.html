@@ -8,11 +8,11 @@
     <meta name="Description" content="Enter your description here" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-    <title>Title</title>
+    <title>Homework 6 Weather</title>
 </head>
 
 <body>
-    <header class="bg-dark">Weather Dashboard</header>    
+    <header class="bg-dark">Weather Dashboard</header>
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
@@ -54,6 +54,30 @@
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        // This is our API key
+        var APIKey = "166a433c57516f51dfab1f7edaed8413";
+
+        // Here we are building the URL we need to query the database
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
+            "q=" + city + "&appid=" + APIKey;
+
+        // Here we run our AJAX call to the OpenWeatherMap API
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+            // We store all of the retrieved data inside of an object called "response"
+            .then(function (response) {
+
+                // Log the queryURL
+                console.log(queryURL);
+
+                // Log the resulting object
+                console.log(response);
+            });
+
+    </script>
 </body>
 
 </html>
