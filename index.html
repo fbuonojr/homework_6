@@ -119,8 +119,10 @@
                     display.empty();
                     var headerEl = $("<h1>").text(nameEl);
                     display.append(headerEl);
-                    var tempP = $("<p>").text(tempEl);
-                    display.append(tempP);
+                    var humidityP = $("<p>").text(humidityEl);
+                    display.append(humidityP);
+                    var speedP = $("<p>").text(speedEl);
+                    display.append(speedP);
                 });
                 
             var queryURL5 = "https://api.openweathermap.org/data/2.5/forecast?" +
