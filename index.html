@@ -21,12 +21,7 @@
         }
 
         #inputCity {
-            width: 60%;
-        }
-
-        #submitBtn {
-            width: 30%;
-            height: 100%;
+            width: 80%;
         }
 
         #searchCaption {
@@ -53,32 +48,19 @@
                     </div>
                 </form>
                 <!-- div for rendered city buttons -->
-                <div id="renderedButtons">
-
-                </div>
+                <ul class="list-group" id="renderedButtons">
+                </ul>
             </div>
             <div class="col-lg-8">
-                <div class="row">
-                    <div class="jumbotron">
-                        <h1 id="cityName"></h1>
+                    <div class="jumbotron jumbotron-fluid" id="weatherDisplay">
+                        <h1>City</h1>
+                        <p>Temp</p>
+                        <p>Humidity</p>
+                        <p>Wind Speed</p>
+                        <p>UV</p>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
+                <div class="row" id="fiveDayRow">
+                    
                 </div>
             </div>
         </div>
@@ -89,12 +71,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+    var cityArray =[];
         $("#addCity").on("click", function () {
             event.preventDefault();
             // This is our API key
             var APIKey = "166a433c57516f51dfab1f7edaed8413";
-            var city = $("#inputCity").val()
+            var city = $("#inputCity").val();
+            console.log(city);
+            var inArray = false;
+            var checkArray = function(element){
+                if(element === city){ 
+                inArray = true;
+                console.log("inArray set to true");
+                }
+            }
+            cityArray.forEach(checkArray);
 
+            if(!inArray){
+            cityArray.push(city);
+            console.log(cityArray);
+            var listEl = $("<button>").text(city);
+            listEl.attr("class", "list-group-item cityButton");
+            $("#renderedButtons").append(listEl);
+            }
             // Here we are building the URL we need to query the database
             var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
                 "q=" + city + "&appid=" + APIKey;
@@ -111,6 +110,69 @@
 
                     // Log the resulting object
                     console.log(response);
+                    var nameEl = response.name;
+                    var tempEl = response.main.temp;
+                    var humidityEl = response.main.humidity;
+                    var speedEl = response.wind.speed;
+                    // var indexEl =
+                    var display = $("#weatherDisplay");
+                    display.empty();
+                    var headerEl = $("<h1>").text(nameEl);
+                    display.append(headerEl);
+                    var tempP = $("<p>").text(tempEl);
+                    display.append(tempP);
+                });
+                
+            var queryURL5 = "https://api.openweathermap.org/data/2.5/forecast?" +
+            "q=" + city + "&appid=" + APIKey;
+
+            // Here we run our AJAX call to the OpenWeatherMap API
+            $.ajax({
+                url: queryURL5,
+                method: "GET"
+            })
+                // We store all of the retrieved data inside of an object called "response"
+                .then(function (response) {
+                    $("#fiveDayRow").empty();
+                    console.log(response.list);
+                    for(var i = 8; i < response.list.length; i += 8){
+                        console.log(response.list[i]);
+                        var dateEl = response.list[i].dt_txt.substring(0,10);
+                        console.log(dateEl);
+                        var tempEl5 = response.list[i].main.temp;
+                        console.log(tempEl5);
+                        var humidityEl5 = response.list[i].main.humidity;
+
+                        var colEl = $("<div>").addClass("col");
+                        var cardEl = $("<div>").addClass("card");
+                        var bodyEl = $("<div>").addClass("card-body");
+                        var dateH = $("<h5>").addClass("card-title").text(dateEl);
+                        var tempP5 = $("<p>").addClass("card-text").text(tempEl5);
+                        var humidityP5 = $("<p>").addClass("card-text").text(humidityEl5);
+                        bodyEl.append(dateH);
+                        bodyEl.append(tempP5);
+                        bodyEl.append(humidityP5);
+                        cardEl.append(bodyEl);
+                        colEl.append(cardEl);
+                        $("#fiveDayRow").append(colEl);
+                    }
+                    console.log(response.list[39]);
+                    var dateEl = response.list[39].dt_txt.substring(0,10);
+                        var tempEl5 = response.list[39].main.temp;
+                        var humidityEl5 = response.list[39].main.humidity;
+
+                        var colEl = $("<div>").addClass("col");
+                        var cardEl = $("<div>").addClass("card");
+                        var bodyEl = $("<div>").addClass("card-body");
+                        var dateH = $("<h5>").addClass("card-title").text(dateEl);
+                        var tempP5 = $("<p>").addClass("card-text").text(tempEl5);
+                        var humidityP5 = $("<p>").addClass("card-text").text(humidityEl5);
+                        bodyEl.append(dateH);
+                        bodyEl.append(tempP5);
+                        bodyEl.append(humidityP5);
+                        cardEl.append(bodyEl);
+                        colEl.append(cardEl);
+                        $("#fiveDayRow").append(colEl);
                 });
         });
     </script>
