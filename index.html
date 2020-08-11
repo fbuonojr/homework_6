@@ -117,13 +117,13 @@
                     // var indexEl =
                     var display = $("#weatherDisplay");
                     display.empty();
-                    var headerEl = $("<h1>").text(nameEl);
+                    var headerEl = $("<h1>").text("City: " + nameEl);
                     display.append(headerEl);
-                    var tempP = $("<p>").text(tempEl);
+                    var tempP = $("<p>").text("Temperature: " + tempEl);
                     display.append(tempP);
-                    var humidityP = $("<p>").text(humidityEl);
+                    var humidityP = $("<p>").text("Humidity: " + humidityEl);
                     display.append(humidityP);
-                    var speedP = $("<p>").text(speedEl);
+                    var speedP = $("<p>").text("Wind Speed: " + speedEl);
                     display.append(speedP);
                 });
                 
