@@ -8,25 +8,53 @@
     <meta name="Description" content="Enter your description here" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <style>
+        #heading{
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        #searchForm{
+            padding-left: 10px;
+        }
+        #inputCity{
+            width: 70%;
+        }
+        #submitBtn{
+            width: 30%;
+            height: 100%;
+        }
+        #searchCaption{
+            padding-bottom: 5px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
     <title>Homework 6 Weather</title>
 </head>
 
 <body>
-    <header class="bg-dark">Weather Dashboard</header>
-    <div class="container">
+    <header class="bg-dark" id="heading">Weather Dashboard</header>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4">
-                <form>
-                    <input>
-                    <div>
-
+                <form id="searchForm">
+                    <div class="form-group">
+                        <label for="inputCity" id="searchCaption">Search for a City:</label>
+                        <div class="row">
+                            <input type="city" class="form-control" id="inputCity" placeholder="Enter city">
+                            <div class="pull-right" id="submitBtn">
+                                <button type="submit" class="btn btn-primary fa fa-search"></button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="col-lg-8">
                 <div class="row">
                     <div class="jumbotron">
-
+                        <h1 id="cityName">City Name: </h1>
                     </div>
                 </div>
                 <div class="row">
@@ -57,6 +85,7 @@
     <script type="text/javascript">
         // This is our API key
         var APIKey = "166a433c57516f51dfab1f7edaed8413";
+        var city = "New York";
 
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
