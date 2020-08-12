@@ -111,7 +111,9 @@
                     // Log the resulting object
                     console.log(response);
                     var nameEl = response.name;
-                    var tempEl = response.main.temp;
+                    var stringTempEl = response.main.temp;
+                    var tempEl = stringTempEl.parseInt();
+                    convertedTempEl = (tempEl - 273.15) * 9/5 + 32;
                     var humidityEl = response.main.humidity;
                     var speedEl = response.wind.speed;
                     // var indexEl =
@@ -119,7 +121,7 @@
                     display.empty();
                     var headerEl = $("<h1>").text("City: " + nameEl);
                     display.append(headerEl);
-                    var tempP = $("<p>").text("Temperature: " + tempEl);
+                    var tempP = $("<p>").text("Temperature: " + convertedTempEl);
                     display.append(tempP);
                     var humidityP = $("<p>").text("Humidity: " + humidityEl);
                     display.append(humidityP);
@@ -168,9 +170,9 @@
                         var colEl = $("<div>").addClass("col");
                         var cardEl = $("<div>").addClass("card");
                         var bodyEl = $("<div>").addClass("card-body");
-                        var dateH = $("<h5>").addClass("card-title").text(dateEl);
-                        var tempP5 = $("<p>").addClass("card-text").text(tempEl5);
-                        var humidityP5 = $("<p>").addClass("card-text").text(humidityEl5);
+                        var dateH = $("<h5>").addClass("card-title").text("Date: " + dateEl);
+                        var tempP5 = $("<p>").addClass("card-text").text("Temperature:" + tempEl5);
+                        var humidityP5 = $("<p>").addClass("card-text").text("Humidity: " + humidityEl5);
                         bodyEl.append(dateH);
                         bodyEl.append(tempP5);
                         bodyEl.append(humidityP5);
