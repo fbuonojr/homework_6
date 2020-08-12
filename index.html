@@ -153,7 +153,9 @@
                         var cardEl = $("<div>").addClass("card");
                         var bodyEl = $("<div>").addClass("card-body");
                         var dateH = $("<h5>").addClass("card-title").text("Date: " + dateEl);
-                        var tempP5 = $("<p>").addClass("card-text").text("Temp: " +tempEl5);
+                        var stringTempP5 = $("<p>").addClass("card-text").text("Temp: " +tempEl5);
+                        var tempEl5 = parseInt(stringTempP5);
+                        convertedTempEl5 = (tempEl - 273.15) * 9/5 + 32;
                         var humidityP5 = $("<p>").addClass("card-text").text("Humidity: " +humidityEl5);
                         bodyEl.append(dateH);
                         bodyEl.append(tempP5);
