@@ -145,7 +145,9 @@
                         console.log(response.list[i]);
                         var dateEl = response.list[i].dt_txt.substring(0,10);
                         console.log(dateEl);
-                        var tempEl5 = response.list[i].main.temp;
+                        var stringTempP5 = response.list[i].main.temp;
+                        var tempEl5 = parseInt(stringTempP5);
+                        convertedTempEl5 = (tempEl - 273.15) * 9/5 + 32;
                         console.log(tempEl5);
                         var humidityEl5 = response.list[i].main.humidity;
 
@@ -153,12 +155,10 @@
                         var cardEl = $("<div>").addClass("card");
                         var bodyEl = $("<div>").addClass("card-body");
                         var dateH = $("<h5>").addClass("card-title").text("Date: " + dateEl);
-                        var stringTempP5 = $("<p>").addClass("card-text").text("Temp: " +tempEl5);
-                        var tempEl5 = parseInt(stringTempP5);
-                        convertedTempEl5 = (tempEl - 273.15) * 9/5 + 32;
-                        var humidityP5 = $("<p>").addClass("card-text").text("Humidity: " +humidityEl5);
+                        var stringTempP5 = $("<p>").addClass("card-text").text("Temp: " + convertedTempEl5);
+                        var humidityP5 = $("<p>").addClass("card-text").text("Humidity: " + humidityEl5);
                         bodyEl.append(dateH);
-                        bodyEl.append(tempP5);
+                        bodyEl.append(stringTempP5);
                         bodyEl.append(humidityP5);
                         cardEl.append(bodyEl);
                         colEl.append(cardEl);
